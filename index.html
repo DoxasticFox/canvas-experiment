@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Track Mouse</title>
+    </head>
+    <body>
+        <form name="Form1">
+            POSX: <input type="text" name="posx"><br>
+            POSY: <input type="text" name="posy"><br>
+        </form>
+        <div id="canvas"></div>
+    </body>
+    <style>
+        #canvas {
+            border: 1px solid red;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="two.js"></script>
+    <script type="text/javascript">
+        document.onmousemove = function handleMouseMove(event) {
+            document.Form1.posx.value = event.pageX;
+            document.Form1.posy.value = event.pageY;
+        }
+
+        // Make an instance of two and place it on the page.
+        var elem = document.getElementById('canvas');
+        var params = { fullscreen: true /*, type: Two.Types.canvas*/ };
+        var two = new Two(params).appendTo(elem);
+
+        for (var i = 0; i < 500; i += 20) {
+            for (var j = 0; j < 500; j += 20) {
+                // two has convenience methods to create shapes.
+                var circle = two.makeCircle(i, j, 1);
+                console.log(circle);
+
+                // The object returned has many stylable properties:
+                circle.fill = '#000';
+            }
+        }
+
+        function update(frameCount) {
+            return;
+        }
+
+        // Don't forget to tell two to render everything
+        // to the screen
+        two.bind('update', update).play();
+    </script>
+</html>
